@@ -6,7 +6,21 @@ Business Rules
 
 ## Table of Contents
 
-[TOC]
+- [Business Rules](#business-rules)
+  * [Table of Contents](#table-of-contents)
+  * [About (Why?)](#about--why--)
+  * [Overall Flow](#overall-flow)
+  * [Configuration Tables](#configuration-tables)
+  * [Rule Strings](#rule-strings)
+  * [Creating RuleStrings](#creating-rulestrings)
+  * [Some Examples](#some-examples) <br>
+          * [Assign Rule](#assign-rule) <br>
+          * [CompareKeyValue Rule](#comparekeyvalue-rule) <br>
+          * [AssignQ Rule](#assignq-rule) <br>
+  * [Extending Functions`](#extending-functions-)
+  * [Decision Tree](#decision-tree)
+  * [Appendix and FAQ](#appendix-and-faq)
+
 
 ## About (Why?)
 As a software system grows in complexity and usage, it can become burdensome if every change to the logic/behavior of the system also requires you to write and deploy new code. The goal of this business rules engine is to provide a simple interface allowing anyone to capture new rules and logic defining the behavior of a system, and a way to then process those rules on the backend.
