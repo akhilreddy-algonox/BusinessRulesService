@@ -45,50 +45,209 @@ Rulestrings are objects which are designed for business rule engine.
 Considering an analogy, you can think rule strings as byte code for business rule engine.
 
 ## Creating RuleStrings
+A rule is just a JSON object that gets interpreted by the business-rules engine. There are three keywords while writing rules. 
 
-If you are a total beginner to this, start here!
+    1. rule_type -> static for functions, condition for conditional executions.
+    2. function -> name of the function to be executed.
+    3. parameters -> parameters required for the respective function.
 
-1. Visit hackmd.io
-2. Click "Sign in"
-3. Choose a way to sign in
-4. Start writing note!
+
+1) **Rule Type:-**<br>
+    Rule Type may be static, condition and table based on the user requirements.
+
+    <em>Static</em>:
+        It performs basic operations which are asked by the programmer.
+
+    For eg.
+    ```python
+    {
+      "rule_type": "static",
+      "function": "Assign",
+      "parameters": {
+        "source": "input",
+        "value": 5
+      }
+    }
+    ```
+    <em>Condition</em>:-
+    It consists of two parts i.e condition and execution.
+    If the first part is satisfied then the second part will get executed
+    and comes out of the rule or else it goes to the next condition.
+
+    For eg.
+    ```python
+    {
+      "rule_type": "condition",
+      "evaluations": [
+        {
+          "conditions": [
+            some_rule, AND, other_rule
+          ],
+          "executions": [
+            some_execution_rule, other_execution_rule
+          ]
+        },
+
+        {
+          "conditions": [
+            different_rule, AND, other_rule
+          ],
+          "executions": [
+            different_execution_rule, other_execution
+          ]
+        },
+
+      ]
+    }
+    ```
+    <em>Table</em>:-
+    This type of rule is used to read a table that is     inside the main table column.
+
+    ```python
+    {
+      "rule_type": "table",
+      "table_name": "table_name",
+      "column_name": "column_name",
+      "evaluate_rule": {"rule":some_rule,
+                          "start_row_index":5}
+    }
+    ```
+
+2) **Function**<br>
+    A function is a block of code that only runs when it is called. Some of them are Assign, Get Length, Select, etc...These functions are designed in such a way as the function name is given by the user, code gets call then the execution is done.
+    
+    Some available functions are:
+    * Assign
+    * AssignQ
+    * CompareKeyValue
+    * Select
+    * Transform
+    * GetLength
+    * GetRange
+            
+3) **Parameters**
+
+    *  You can pass data, known as parameters, into a function.
+    *  Parameters are passed as an object.
+    *  If source of the parameter is input_config then we are considering the value that are already in the database table that are read from datasources.
+     For eg.
+        ```python
+            {
+              "source": "input_config",
+              "table": "ocr",
+              "column": "Invoice Name"
+            }
+        ```
+    *  If source of the parameter is input then we are considering the value as input from the use.<br>
+    For eg.
+        ```python
+            {
+              "source": "input",
+              "value": "5",
+            }
+        ```
+    *  If source of the parameter is rule then we are considering the value as the output by execting the rule.<br>
+    For eg.
+        ```python
+        
+            {
+              "source": "rule",
+              "value": tranform_rule,
+            }
+        
+            transform_rule = {
+              "rule_type": "static",
+              "Function": "Transform",
+              "Parameters": [
+                {
+                  "param": {
+                    "source": "input_config",
+                    "table": "ocr",
+                    "column": "amt1"
+                  }
+                },
+                {
+                  "operator": "+"
+                },
+                {
+                  "param": {
+                    "source": "input_config",
+                    "table": "ocr",
+                    "column": "amt2"
+                  }
+                }
+              ]
+            }
+            
+        ```
 
 Some Examples
 ---
 
-```gherkin=
-Feature: Guess the word
-
-  # The first example has two steps
-  Scenario: Maker starts a game
-    When the Maker starts a game
-    Then the Maker waits for a Breaker to join
-
-  # The second example has three steps
-  Scenario: Breaker joins a game
-    Given the Maker has started a game with the word "silky"
-    When the Breaker joins the Maker's game
-    Then the Breaker must guess a word with 5 characters
-```
-> I choose a lazy person to do a hard job. Because a lazy person will find an easy way to do it. [name=Bill Gates]
-
-
-```gherkin=
-Feature: Shopping Cart
-  As a Shopper
-  I want to put items in my shopping cart
-  Because I want to manage items before I check out
-
-  Scenario: User adds item to cart
-    Given I'm a logged-in User
-    When I go to the Item page
-    And I click "Add item to cart"
-    Then the quantity of items in my cart should go up
-    And my subtotal should increment
-    And the warehouse inventory should decrement
+###### Assign Rule
+```python= 
+{
+  "rule_type": "static",
+  "Function": "Assign",
+  "parameters": {
+    "assign_table": {
+      "table": "ocr",
+      "column": "total"
+    },
+    "assign_value": {
+      "source": "rule",
+      "value": Some_Rule
+    }
+  }
+}
 ```
 
-> Read more about Gherkin here: https://docs.cucumber.io/gherkin/reference/
+
+
+###### CompareKeyValue Rule
+```python= 
+{
+  "rule_type": "static",
+  "Function": "CompareKeyValue",
+  "Parameters": {
+    "left_param": {
+      "source": "input_config",
+      "table": "ocr",
+      "column": "total_value"
+    },
+    "operator": "<",
+    "right_param": {
+      "source": "input",
+      "value": 30
+    }
+  }
+}
+
+```
+
+
+###### AssignQ Rule
+```python= 
+{
+  "rule_type": "static",
+  "Function": "Assign",
+  "parameters": {
+    "assign_table": {
+      "table": "ocr",
+      "column": "total"
+    },
+    "assign_value": {
+      "source": "rule",
+      "value": Some_Rule
+    }
+  }
+}
+```
+
+> I choose a lazy person to do a hard job. Because a lazy person will find an easy way to do it. [name=True]
+
+
+`
 
 ## Decision Tree
 
