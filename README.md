@@ -1,7 +1,3 @@
----
-title: 'BusinessRules documentation'
-disqus: Akhil
----
 
 Business Rules
 ===
