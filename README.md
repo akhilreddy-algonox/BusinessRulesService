@@ -21,13 +21,24 @@ As a software system grows in complexity and usage, it can become burdensome if 
 
 ## Configuration Tables
 1) **sequence_rule_data**
+
+    1) <em>rule_string</em> - The rule string that needs to be executed.<br>
+   2) <em>Description</em> - Description of a rule.<br>
+   3) <em>rule_id</em> - A unique id for each rule to be referenced by.<br>
+   4) <em>next_if_success</em> -The rule id to follow if the current rules gives the output as True. <br>
+   5) <em>next_if_failure</em> -The rule id to follow if the current rules gives the output as False.<br>
+   6) <em>group</em> -The group of the rule.<br>
+   
+   
    ![alt sequence_rule_data table](https://github.com/akhilreddy-algonox/BusinessRulesService/blob/master/Annotation%202020-03-16%20020618.png)
 
 2) **data_sources**
+    1) <em>case_id_based</em> -The data table which are to be considered where the case_id is known.<br>
+    2) <em>master</em> -The data table which are to be considered where the case_id is not known.<br>
+
     ![alt datasources table](https://github.com/akhilreddy-algonox/BusinessRulesService/blob/master/datasources.png)
 
 
-## Decision Tree
 
 ## Rule Strings
 Rulestrings are objects which are designed for business rule engine.
@@ -79,28 +90,7 @@ Feature: Shopping Cart
 
 > Read more about Gherkin here: https://docs.cucumber.io/gherkin/reference/
 
-User flows
----
-```sequence
-Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!
-Note left of Alice: Alice responds
-Alice->Bob: Where have you been?
-```
-
-```graph TD
-    B["fa:fa-twitter for peace"]
-    B-->C[fa:fa-ban forbidden]
-    B-->D(fa:fa-spinner);
-    B-->E(A fa:fa-camera-retro perhaps?);
-```
-
-> Read more about sequence-diagrams here: http://bramp.github.io/js-sequence-diagrams/
-
-
-
-> Read more about mermaid here: http://mermaid-js.github.io/mermaid/
+## Decision Tree
 
 ## Appendix and FAQ
 
