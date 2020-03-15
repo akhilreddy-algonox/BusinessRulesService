@@ -21,7 +21,11 @@ As a software system grows in complexity and usage, it can become burdensome if 
 
 ## Configuration Tables
 1) sequence_rule_data
+![alt sequence_rule_data table](https://github.com/akhilreddy-algonox/BusinessRulesService/blob/master/Annotation%202020-03-16%20020618.png)
+
 2) data_sources
+![alt datasources table](https://github.com/akhilreddy-algonox/BusinessRulesService/blob/master/datasources.png)
+
 
 ## Decision Tree
 
